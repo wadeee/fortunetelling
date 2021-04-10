@@ -3,7 +3,7 @@
 ## build the jar ##
 gradle bootJar
 
-## add sscon to service ##
+## add fortunetelling to service ##
 echo y | cp ./fortunetelling.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable fortunetelling

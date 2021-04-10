@@ -76,47 +76,6 @@
                                 @input="menu = false"
                         ></v-date-picker>
                     </v-menu>
-<!--                    <v-menu-->
-<!--                            :close-on-content-click="false"-->
-<!--                            :return-value.sync="formData.date"-->
-<!--                            transition="scale-transition"-->
-<!--                            offset-y-->
-<!--                            min-width="auto"-->
-<!--                    >-->
-<!--                        <template v-slot:activator="{ on, attrs }">-->
-<!--                            <v-text-field-->
-<!--                                    name="date"-->
-<!--                                    v-model="formData.date"-->
-<!--                                    label="生日"-->
-<!--                                    prepend-icon="mdi-calendar"-->
-<!--                                    readonly-->
-<!--                                    v-bind="attrs"-->
-<!--                                    v-on="on"-->
-<!--                            ></v-text-field>-->
-<!--                        </template>-->
-<!--                        <v-date-picker-->
-<!--                                v-model="formData.date"-->
-<!--                                no-title-->
-<!--                                scrollable-->
-<!--                                locale="zh-cn"-->
-<!--                        >-->
-<!--                            <v-spacer></v-spacer>-->
-<!--                            <v-btn-->
-<!--                                    text-->
-<!--                                    color="primary"-->
-<!--                                    @click="menu = false"-->
-<!--                            >-->
-<!--                                Cancel-->
-<!--                            </v-btn>-->
-<!--                            <v-btn-->
-<!--                                    text-->
-<!--                                    color="primary"-->
-<!--                                    @click="$refs.menu.save(formData.date)"-->
-<!--                            >-->
-<!--                                OK-->
-<!--                            </v-btn>-->
-<!--                        </v-date-picker>-->
-<!--                    </v-menu>-->
                 </v-col>
 
                 <v-select
@@ -134,16 +93,6 @@
                         label="分"
                         required
                 ></v-select>
-
-
-                <!--                <v-col>-->
-                <!--                    <v-time-picker-->
-                <!--                            name="time"-->
-                <!--                            v-model="formData.time"-->
-                <!--                            format="24hr"-->
-                <!--                    ></v-time-picker>-->
-                <!--                </v-col>-->
-
                 <v-checkbox
                         name="payed"
                         value="payed"
@@ -151,14 +100,12 @@
                         label="已支付"
                         required
                 ></v-checkbox>
-
                 <v-btn
                         class="mr-4"
                         type="submit"
                 >
                     submit
                 </v-btn>
-
             </v-form>
         </v-container>
     </v-app>
@@ -189,7 +136,6 @@
                 lastName: null,
                 name: null,
                 date: new Date().toISOString().substr(0, 10),
-                // time: null,
                 hour: null,
                 minute: null,
                 payed: false,
@@ -257,12 +203,39 @@
                 28,
                 29,
                 30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
             ],
         },
         methods: {
-            submit() {
-                console.log(this.formData)
-            },
         },
     })
 

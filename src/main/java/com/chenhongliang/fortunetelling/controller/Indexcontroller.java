@@ -1,10 +1,7 @@
 package com.chenhongliang.fortunetelling.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.chenhongliang.fortunetelling.domain.FormInfo;
 import com.chenhongliang.fortunetelling.util.HttpUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.lang.Nullable;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,7 +19,7 @@ public class Indexcontroller {
 
     @GetMapping
     public String index() {
-        return "/index";
+        return "index";
     }
 
     @PostMapping("/result")
@@ -35,13 +31,6 @@ public class Indexcontroller {
                          @RequestParam(value = "minute") String minute,
                          @Nullable @RequestParam(value = "payed") String payed,
                          Model model) {
-//        System.out.println(lastName);
-//        System.out.println(name);
-//        System.out.println(sex);
-//        System.out.println(date);
-//        System.out.println(hour);
-//        System.out.println(minute);
-//        System.out.println(payed);
 
         Map<String, String> formInfo = new LinkedHashMap<>();
         formInfo.put("姓", lastName);
@@ -82,17 +71,16 @@ public class Indexcontroller {
              * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
              */
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-            String result=EntityUtils.toString(response.getEntity());
-            Map mapType = JSON.parseObject(result,Map.class);
-            for (Object object : mapType.keySet()){
-                System.out.println("key为："+object+"值为："+mapType.get(object));
+            String result = EntityUtils.toString(response.getEntity());
+            Map mapType = JSON.parseObject(result, Map.class);
+            for (Object object : mapType.keySet()) {
                 model.addAttribute(object.toString(), mapType.get(object));
             }
             model.addAttribute("bazi", mapType);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/result";
+        return "result";
     }
 
 }

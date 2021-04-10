@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <v-app>
+        <v-container fluid>
+
+            <v-simple-table>
+                <template v-slot:default>
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th class="text-left">-->
+<!--                            -->
+<!--                        </th>-->
+<!--                        <th class="text-left">-->
+<!--                            解析-->
+<!--                        </th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tr th:each="maps:${map}">-->
+<!--                        <td th:each="entry:${maps}" th:text="${entry.value.userId}"></td>-->
+<!--                        <td th:each="entry:${maps}" th:text="${entry.value.userName}"></td>-->
+<!--                        <td th:each="entry:${maps}" th:text="${entry.value.userAge}"></td>-->
+<!--                    </tr>-->
+
+                    <tbody>
+                    <tr th:each="item:${formInfo}">
+                        <td th:text="${item.key}"></td>
+                        <td th:text="${item.value}"></td>
+                    </tr>
+                    <tr th:each="item:${bazi}">
+                        <td th:text="${item.key}"></td>
+                        <td th:text="${item.value}"></td>
+                    </tr>
+                    </tbody>
+                </template>
+            </v-simple-table>
+
+        </v-container>
+    </v-app>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify({
+            theme: {
+                dark: false,
+            },
+        }),
+        data: {
+            formData: {
+                lastname: null,
+                name: null,
+                date: new Date().toISOString().substr(0, 10),
+                // time: null,
+                hour: null,
+                minute: null,
+                payed: false,
+                sex: null,
+            },
+            menu: false,
+            sexes: [
+                '男',
+                '女',
+            ],
+            hours: [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+            ],
+            minutes: [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+            ],
+        },
+        methods: {
+            submit() {
+                console.log(this.formData)
+            },
+        },
+    })
+
+</script>
+</body>
+</html>

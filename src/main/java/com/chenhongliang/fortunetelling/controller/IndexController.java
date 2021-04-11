@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping
-public class Indexcontroller {
+public class IndexController {
 
     @GetMapping
     public String index() {

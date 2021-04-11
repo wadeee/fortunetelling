@@ -41,13 +41,6 @@ public class IndexController {
         formInfo.put("出生 分", minute);
         formInfo.put("是否付款", "payed".equals(payed) ? "是" : "否");
 
-        String host = "https://openapi.fatebox.cn";
-        String path = "/openapi/bazi/getMingpen";
-        String method = "GET";
-        String appcode = "32cf3b4f21904b27bd7877354307b724";
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
         querys.put("birthday", date);
         querys.put("hour", hour);
@@ -59,6 +52,18 @@ public class IndexController {
 
         model.addAttribute("formInfo", formInfo);
 
+        model.addAttribute("mingju", getMapFromAPI("http(s)://openapi.fatebox.cn/openapi/bazi/getMingju", querys));
+        model.addAttribute("mingpan", getMapFromAPI("http(s)://openapi.fatebox.cn/openapi/bazi/getMingpen", querys));
+        return "result";
+    }
+
+    private Map getMapFromAPI(String path, Map<String, String> querys){
+        String host = "https://openapi.fatebox.cn";
+        String method = "GET";
+        String appcode = "32cf3b4f21904b27bd7877354307b724";
+        Map<String, String> headers = new HashMap<String, String>();
+        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+        headers.put("Authorization", "APPCODE " + appcode);
 
         try {
             /**
@@ -73,14 +78,12 @@ public class IndexController {
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
             String result = EntityUtils.toString(response.getEntity());
             Map mapType = JSON.parseObject(result, LinkedHashMap.class);
-            for (Object object : mapType.keySet()) {
-                model.addAttribute(object.toString(), mapType.get(object));
-            }
-            model.addAttribute("bazi", mapType);
+//            model.addAttribute("bazi", mapType);
+            return mapType;
         } catch (Exception e) {
             e.printStackTrace();
+            return new HashMap();
         }
-        return "result";
     }
 
 }

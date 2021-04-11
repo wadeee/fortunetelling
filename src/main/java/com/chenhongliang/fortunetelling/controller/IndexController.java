@@ -72,7 +72,7 @@ public class IndexController {
              */
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
             String result = EntityUtils.toString(response.getEntity());
-            Map mapType = JSON.parseObject(result, Map.class);
+            Map mapType = JSON.parseObject(result, LinkedHashMap.class);
             for (Object object : mapType.keySet()) {
                 model.addAttribute(object.toString(), mapType.get(object));
             }

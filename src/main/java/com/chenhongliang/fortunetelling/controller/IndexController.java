@@ -41,7 +41,7 @@ public class IndexController {
         formInfo.put("出生 分", minute);
         formInfo.put("是否付款", "payed".equals(payed) ? "是" : "否");
 
-        Map<String, String> querys = new HashMap<String, String>();
+        Map<String, String> querys = new HashMap<>();
         querys.put("birthday", date);
         querys.put("hour", hour);
         querys.put("ming", name);
@@ -61,7 +61,7 @@ public class IndexController {
         String host = "https://openapi.fatebox.cn";
         String method = "GET";
         String appcode = "32cf3b4f21904b27bd7877354307b724";
-        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
 

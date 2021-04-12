@@ -18,95 +18,105 @@
 <div id="app">
     <v-app>
         <v-container fluid>
-            <v-form
-                    ref="form"
-                    lazy-validation
-                    method="post"
-                    action="/result"
-            >
-                <v-text-field
-                        name="lastName"
-                        v-model="formData.lastName"
-                        :counter="10"
-                        label="姓"
-                        required
-                ></v-text-field>
-
-                <v-text-field
-                        name="name"
-                        v-model="formData.name"
-                        label="名"
-                        required
-                ></v-text-field>
-
-                <v-select
-                        name="sex"
-                        v-model="formData.sex"
-                        :items="sexes"
-                        label="性别"
-                        required
-                ></v-select>
-
-                <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                >
-                    <v-menu
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto"
+            <v-row>
+                <v-col cols="12">
+                    <v-card
+                            elevation="6"
                     >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                                    name="date"
-                                    v-model="formData.date"
-                                    label="生日"
-                                    prepend-icon="mdi-calendar"
-                                    readonly
-                                    v-bind="attrs"
-                                    v-on="on"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker
-                                v-model="formData.date"
-                                @input="menu = false"
-                        ></v-date-picker>
-                    </v-menu>
+                        <v-card-text>
+                            <v-form
+                                    ref="form"
+                                    lazy-validation
+                                    method="post"
+                                    action="/result"
+                            >
+                                <v-text-field
+                                        name="lastName"
+                                        v-model="formData.lastName"
+                                        :counter="10"
+                                        label="姓"
+                                        required
+                                ></v-text-field>
+
+                                <v-text-field
+                                        name="name"
+                                        v-model="formData.name"
+                                        label="名"
+                                        required
+                                ></v-text-field>
+
+                                <v-select
+                                        name="sex"
+                                        v-model="formData.sex"
+                                        :items="sexes"
+                                        label="性别"
+                                        required
+                                ></v-select>
+
+                                <v-col
+                                        cols="12"
+                                        sm="6"
+                                        md="4"
+                                >
+                                    <v-menu
+                                            v-model="menu"
+                                            :close-on-content-click="false"
+                                            :nudge-right="40"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="auto"
+                                    >
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                                    name="date"
+                                                    v-model="formData.date"
+                                                    label="生日"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                            ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                                v-model="formData.date"
+                                                @input="menu = false"
+                                        ></v-date-picker>
+                                    </v-menu>
+                                </v-col>
+
+                                <v-select
+                                        name="hour"
+                                        v-model="formData.hour"
+                                        :items="hours"
+                                        label="时"
+                                        required
+                                ></v-select>
+
+                                <v-select
+                                        name="minute"
+                                        v-model="formData.minute"
+                                        :items="minutes"
+                                        label="分"
+                                        required
+                                ></v-select>
+                                <v-checkbox
+                                        name="payed"
+                                        value="payed"
+                                        v-model="formData.payed"
+                                        label="已支付"
+                                        required
+                                ></v-checkbox>
+                                <v-btn
+                                        class="mr-4"
+                                        type="submit"
+                                >
+                                    算命
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
                 </v-col>
-
-                <v-select
-                        name="hour"
-                        v-model="formData.hour"
-                        :items="hours"
-                        label="时"
-                        required
-                ></v-select>
-
-                <v-select
-                        name="minute"
-                        v-model="formData.minute"
-                        :items="minutes"
-                        label="分"
-                        required
-                ></v-select>
-                <v-checkbox
-                        name="payed"
-                        value="payed"
-                        v-model="formData.payed"
-                        label="已支付"
-                        required
-                ></v-checkbox>
-                <v-btn
-                        class="mr-4"
-                        type="submit"
-                >
-                    算命
-                </v-btn>
-            </v-form>
+            </v-row>
         </v-container>
     </v-app>
 </div>
@@ -235,8 +245,7 @@
                 60,
             ],
         },
-        methods: {
-        },
+        methods: {},
     })
 
 </script>

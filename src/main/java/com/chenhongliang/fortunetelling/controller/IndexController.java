@@ -52,8 +52,10 @@ public class IndexController {
 
         model.addAttribute("formInfo", formInfo);
 
-        model.addAttribute("mingju", getMapFromAPI("http(s)://openapi.fatebox.cn/openapi/bazi/getMingju", querys));
-        model.addAttribute("mingpan", getMapFromAPI("http(s)://openapi.fatebox.cn/openapi/bazi/getMingpen", querys));
+        //命局分析
+        model.addAttribute("mingju", getMapFromAPI("/openapi/bazi/getMingju", querys));
+        //八字命盘
+        model.addAttribute("mingpan", getMapFromAPI("/openapi/bazi/getMingpen", querys));
         return "result";
     }
 

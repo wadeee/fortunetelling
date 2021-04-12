@@ -18,26 +18,87 @@
 <div id="app">
     <v-app>
         <v-container fluid>
-
-            <v-simple-table>
-                <template v-slot:default>
-                    <tbody>
-                    <tr th:each="item:${formInfo}">
-                        <td th:text="${item.key}"></td>
-                        <td th:text="${item.value}"></td>
-                    </tr>
-                    <tr th:each="item:${mingju}">
-                        <td th:text="${item.key}"></td>
-                        <td th:text="${item.value}"></td>
-                    </tr>
-                    <tr th:each="item:${mingpan}">
-                        <td th:text="${item.key}"></td>
-                        <td th:text="${item.value}"></td>
-                    </tr>
-                    </tbody>
-                </template>
-            </v-simple-table>
-
+            <v-row>
+                <v-col cols="12">
+                    <v-card
+                            elevation="6"
+                    >
+                        <v-simple-table>
+                            <template v-slot:default>
+                                <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        个人信息
+                                    </th>
+                                    <th class="text-left">
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${formInfo}">
+                                    <td th:text="${item.key}"></td>
+                                    <td th:text="${item.value}"></td>
+                                </tr>
+                                </tbody>
+                            </template>
+                        </v-simple-table>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card
+                            elevation="6"
+                    >
+                        <v-simple-table>
+                            <template v-slot:default>
+                                <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        命局分析
+                                    </th>
+                                    <th class="text-left">
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${mingju}">
+                                    <td th:text="${item.key}"></td>
+                                    <td th:text="${item.value}"></td>
+                                </tr>
+                                </tbody>
+                            </template>
+                        </v-simple-table>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card
+                            elevation="6"
+                    >
+                        <v-simple-table>
+                            <template v-slot:default>
+                                <thead>
+                                <tr>
+                                    <th class="text-left">
+                                        八字命盘
+                                    </th>
+                                    <th class="text-left">
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${mingpan}">
+                                    <td th:text="${item.key}"></td>
+                                    <td th:text="${item.value}"></td>
+                                </tr>
+                                </tbody>
+                            </template>
+                        </v-simple-table>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </v-app>
 </div>
@@ -62,10 +123,8 @@
                 dark: false,
             },
         }),
-        data: {
-        },
-        methods: {
-        },
+        data: {},
+        methods: {},
     })
 
 </script>

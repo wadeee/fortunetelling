@@ -106,6 +106,18 @@
                                         label="已支付"
                                         required
                                 ></v-checkbox>
+                                <v-checkbox
+                                        name="service"
+                                        value="mingpen"
+                                        v-model="formData.service"
+                                        label="八字命盘"
+                                ></v-checkbox>
+                                <v-checkbox
+                                        name="service"
+                                        value="mingju"
+                                        v-model="formData.service"
+                                        label="命局分析"
+                                ></v-checkbox>
                                 <v-btn
                                         class="mr-4"
                                         type="submit"
@@ -150,6 +162,7 @@
                 minute: null,
                 payed: false,
                 sex: null,
+                service: [],
             },
             menu: false,
             sexes: [

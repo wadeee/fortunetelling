@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping
@@ -30,6 +28,7 @@ public class IndexController {
                          @RequestParam(value = "hour") String hour,
                          @RequestParam(value = "minute") String minute,
                          @Nullable @RequestParam(value = "payed") String payed,
+                         @Nullable @RequestParam(value = "service") Set<String> service,
                          Model model) {
 
         Map<String, String> formInfo = new LinkedHashMap<>();
@@ -52,10 +51,16 @@ public class IndexController {
 
         model.addAttribute("formInfo", formInfo);
 
-        //命局分析
-        model.addAttribute("mingju", getMapFromAPI("/openapi/bazi/getMingju", querys));
-        //八字命盘
-        model.addAttribute("mingpan", getMapFromAPI("/openapi/bazi/getMingpen", querys));
+        if (service != null) {
+            if (service.contains("mingpen")) {
+                //八字命盘
+                model.addAttribute("mingpen", getMapFromAPI("/openapi/bazi/getMingpen", querys));
+            }
+            if (service.contains("mingju")) {
+                //命局分析
+                model.addAttribute("mingju", getMapFromAPI("/openapi/bazi/getMingju", querys));
+            }
+        }
         return "result";
     }
 

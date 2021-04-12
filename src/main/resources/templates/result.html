@@ -50,19 +50,19 @@
                     <v-card
                             elevation="6"
                     >
-                        <v-simple-table>
+                        <v-simple-table th:if="${mingpen}">
                             <template v-slot:default>
                                 <thead>
                                 <tr>
                                     <th class="text-left">
-                                        命局分析
+                                        八字命盘
                                     </th>
                                     <th class="text-left">
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item:${mingju}">
+                                <tr th:each="item:${mingpen}">
                                     <td th:text="${item.key}"></td>
                                     <td th:text="${item.value}"></td>
                                 </tr>
@@ -77,19 +77,19 @@
                     <v-card
                             elevation="6"
                     >
-                        <v-simple-table>
+                        <v-simple-table th:if="${mingju}">
                             <template v-slot:default>
                                 <thead>
                                 <tr>
                                     <th class="text-left">
-                                        八字命盘
+                                        命局分析
                                     </th>
                                     <th class="text-left">
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item:${mingpan}">
+                                <tr th:each="item:${mingju}">
                                     <td th:text="${item.key}"></td>
                                     <td th:text="${item.value}"></td>
                                 </tr>

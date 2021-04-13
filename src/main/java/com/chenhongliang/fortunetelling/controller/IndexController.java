@@ -2,20 +2,20 @@ package com.chenhongliang.fortunetelling.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.chenhongliang.fortunetelling.util.HttpUtils;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -78,9 +78,9 @@ public class IndexController {
         return "result";
     }
 
-    public static Map getPinyinMap() throws IOException {
-        File jsonFile = ResourceUtils.getFile("classpath:static/pinyinmap.json");
-        String jsonStr = FileUtils.readFileToString(jsonFile);
+    public Map getPinyinMap() throws IOException {
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("static/pinyinmap.json");
+        String jsonStr = IOUtils.toString(in, StandardCharsets.UTF_8);
         Map jsonMap=JSON.parseObject(String.valueOf(jsonStr), HashMap.class);
 
         return jsonMap;

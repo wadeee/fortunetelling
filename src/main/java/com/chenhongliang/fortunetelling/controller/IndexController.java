@@ -2,21 +2,32 @@ package com.chenhongliang.fortunetelling.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.chenhongliang.fortunetelling.util.HttpUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping
 public class IndexController {
 
     @GetMapping
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("title", "玖言国学起名八字算命系统");
         return "index";
     }
 
@@ -29,7 +40,9 @@ public class IndexController {
                          @RequestParam(value = "minute") String minute,
                          @Nullable @RequestParam(value = "payed") String payed,
                          @Nullable @RequestParam(value = "service") Set<String> service,
-                         Model model) {
+                         Model model) throws IOException {
+        Map pinyinMap = getPinyinMap();
+        model.addAttribute("pinyinMap", pinyinMap);
 
         Map<String, String> formInfo = new LinkedHashMap<>();
         formInfo.put("姓", lastName);
@@ -50,6 +63,7 @@ public class IndexController {
         querys.put("xing", lastName);
 
         model.addAttribute("formInfo", formInfo);
+        model.addAttribute("title", "玖言国学起名八字算命系统");
 
         if (service != null) {
             if (service.contains("mingpen")) {
@@ -62,6 +76,14 @@ public class IndexController {
             }
         }
         return "result";
+    }
+
+    public static Map getPinyinMap() throws IOException {
+        File jsonFile = ResourceUtils.getFile("classpath:static/pinyinmap.json");
+        String jsonStr = FileUtils.readFileToString(jsonFile);
+        Map jsonMap=JSON.parseObject(String.valueOf(jsonStr), HashMap.class);
+
+        return jsonMap;
     }
 
     private Map getMapFromAPI(String path, Map<String, String> querys){
@@ -85,7 +107,6 @@ public class IndexController {
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
             String result = EntityUtils.toString(response.getEntity());
             Map mapType = JSON.parseObject(result, LinkedHashMap.class);
-//            model.addAttribute("bazi", mapType);
             return mapType;
         } catch (Exception e) {
             e.printStackTrace();

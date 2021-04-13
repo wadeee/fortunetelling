@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>[[${title}]]</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"  media="screen"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -22,7 +23,9 @@
                 <v-col cols="12">
                     <v-card
                             elevation="6"
+                            width="900"
                     >
+                        <v-card-title>{{title}}</v-card-title>
                         <v-card-text>
                             <v-form
                                     ref="form"
@@ -53,44 +56,48 @@
                                         required
                                 ></v-select>
 
-                                <v-checkbox
-                                        name="payed"
-                                        value="payed"
-                                        v-model="formData.payed"
-                                        label="已支付"
-                                        required
-                                ></v-checkbox>
-
-                                <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                >
-                                    <v-menu
-                                            v-model="menu"
-                                            :close-on-content-click="false"
-                                            :nudge-right="40"
-                                            transition="scale-transition"
-                                            offset-y
-                                            min-width="auto"
+                                <v-row>
+                                    <v-col
+                                            cols="4"
                                     >
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field
-                                                    name="date"
+                                        <v-checkbox
+                                                name="payed"
+                                                value="payed"
+                                                v-model="formData.payed"
+                                                label="已支付"
+                                                required
+                                        ></v-checkbox>
+                                    </v-col>
+                                    <v-col
+                                            cols="4"
+                                    >
+                                        <v-menu
+                                                v-model="menu"
+                                                :close-on-content-click="false"
+                                                :nudge-right="40"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                        name="date"
+                                                        v-model="formData.date"
+                                                        label="生日"
+                                                        prepend-icon="mdi-calendar"
+                                                        readonly
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
                                                     v-model="formData.date"
-                                                    label="生日"
-                                                    prepend-icon="mdi-calendar"
-                                                    readonly
-                                                    v-bind="attrs"
-                                                    v-on="on"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker
-                                                v-model="formData.date"
-                                                @input="menu = false"
-                                        ></v-date-picker>
-                                    </v-menu>
-                                </v-col>
+                                                    @input="menu = false"
+                                                    locale="zh-cn"
+                                            ></v-date-picker>
+                                        </v-menu>
+                                    </v-col>
+                                </v-row>
 
                                 <v-select
                                         name="hour"
@@ -107,18 +114,29 @@
                                         label="分"
                                         required
                                 ></v-select>
-                                <v-checkbox
-                                        name="service"
-                                        value="mingpen"
-                                        v-model="formData.service"
-                                        label="八字命盘"
-                                ></v-checkbox>
-                                <v-checkbox
-                                        name="service"
-                                        value="mingju"
-                                        v-model="formData.service"
-                                        label="命局分析"
-                                ></v-checkbox>
+
+                                <v-row>
+                                    <v-col
+                                            cols="4"
+                                    >
+                                        <v-checkbox
+                                                name="service"
+                                                value="mingpen"
+                                                v-model="formData.service"
+                                                label="八字命盘"
+                                        ></v-checkbox>
+                                    </v-col>
+                                    <v-col
+                                            cols="4"
+                                    >
+                                        <v-checkbox
+                                                name="service"
+                                                value="mingju"
+                                                v-model="formData.service"
+                                                label="命局分析"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
                                 <v-btn
                                         class="mr-4"
                                         type="submit"
@@ -146,7 +164,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script>
+<script th:inline="javascript">
     new Vue({
         el: '#app',
         vuetify: new Vuetify({
@@ -165,6 +183,7 @@
                 sex: null,
                 service: [],
             },
+            title: [[${title}]],
             menu: false,
             sexes: [
                 '男',

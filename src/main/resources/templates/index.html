@@ -61,9 +61,9 @@
                                             cols="4"
                                     >
                                         <v-checkbox
+                                                v-model="formData.payed"
                                                 name="payed"
                                                 value="payed"
-                                                v-model="formData.payed"
                                                 label="已支付"
                                                 required
                                         ></v-checkbox>
@@ -179,7 +179,7 @@
                 date: new Date().toISOString().substr(0, 10),
                 hour: null,
                 minute: null,
-                payed: false,
+                payed: ["payed"],
                 sex: null,
                 service: [],
             },

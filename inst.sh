@@ -4,7 +4,7 @@
 gradle bootJar
 
 ## stop mysqld ##
-systemctl stop mysqld
+#systemctl stop mysqld
 ## add fortunetelling to service ##
 echo y | cp ./fortunetelling.service /etc/systemd/system/
 systemctl daemon-reload
@@ -17,4 +17,4 @@ echo y | cp ./fortunetelling.nginx.http.conf /etc/nginx/conf.d/
 systemctl restart nginx ## please make sure nginx installed ##
 
 ## start mysqld ##
-systemctl start mysqld
+#systemctl start mysqld

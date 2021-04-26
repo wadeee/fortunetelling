@@ -2,6 +2,7 @@ package com.chenhongliang.fortunetelling.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.chenhongliang.fortunetelling.util.HttpUtils;
+import com.chenhongliang.fortunetelling.util.Lunar;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping
@@ -40,7 +40,7 @@ public class IndexController {
                          @RequestParam(value = "minute") String minute,
                          @Nullable @RequestParam(value = "payed") String payed,
                          @Nullable @RequestParam(value = "service") Set<String> service,
-                         Model model) throws IOException {
+                         Model model) throws IOException, ParseException {
         Map pinyinMap = getPinyinMap();
         model.addAttribute("pinyinMap", pinyinMap);
 
@@ -49,6 +49,7 @@ public class IndexController {
         formInfo.put("名", name);
         formInfo.put("性别", sex);
         formInfo.put("出生日期", date);
+        formInfo.put("出生日期(农历)", solarToLunar(date));
         formInfo.put("出生 时", hour);
         formInfo.put("出生 分", minute);
         formInfo.put("是否付款", "payed".equals(payed) ? "是" : "否");
@@ -112,6 +113,14 @@ public class IndexController {
             e.printStackTrace();
             return new HashMap();
         }
+    }
+
+    private String solarToLunar(String date) throws ParseException {
+        Calendar today = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        today.setTime(formatter.parse(date));
+        Lunar lunar = new Lunar(today);
+        return lunar.cyclical() + "年" + lunar.toString();
     }
 
 }

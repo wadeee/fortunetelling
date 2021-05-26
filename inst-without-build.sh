@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## make this file runnable
-chmod +x ./inst.sh
+chmod +x ./inst-without-build.sh
 
 ## add fortunetelling to service ##
 echo y | cp ./fortunetelling.service /etc/systemd/system/

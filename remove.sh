@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## make this file runnable
-chmod +x ./inst.sh
+chmod +x ./*.sh
 
 systemctl stop fortunetelling
 

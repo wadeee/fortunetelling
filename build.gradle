@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'org.hidetake.ssh' version '2.10.1'
 }
 
 group = 'com.chenhongliang'
@@ -11,6 +12,14 @@ sourceCompatibility = '1.8'
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+remotes {
+    production {
+        host = '47.105.99.75'
+        user = 'root'
+        identity = file('C:/Users/TS/.ssh/id_rsa_ssh8')
     }
 }
 
@@ -51,6 +60,25 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task removeDeploy() {
+    ssh.settings {
+        knownHosts = allowAnyHosts
+    }
+    ssh.run {
+        session(remotes.production) {
+            execute """
+                systemctl stop fortunetelling
+                systemctl disable fortunetelling
+                rm /etc/systemd/system/fortunetelling.service
+                systemctl daemon-reload
+                
+                rm /etc/nginx/conf.d/fortunetelling.nginx.http.conf
+                systemctl restart nginx
+            """
+        }
+    }
 }
 
 test {

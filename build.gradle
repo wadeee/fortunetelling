@@ -16,6 +16,11 @@ configurations {
 }
 
 remotes {
+    stage {
+        host = '192.168.0.91'
+        user = 'root'
+        identity = file('C:/Users/TS/.ssh/id_rsa_ssh8')
+    }
     production {
         host = '47.105.99.75'
         user = 'root'
@@ -60,6 +65,50 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task deployStage(dependsOn: bootJar) {
+    doLast {
+        ssh.settings {
+            knownHosts = allowAnyHosts
+        }
+        ssh.run {
+            session(remotes.stage) {
+                put from: "${buildDir}/libs/${rootProject.name}-${version}.jar", into: "/root/jars/${rootProject.name}.jar"
+                put from: "${rootDir}/bin/config/${rootProject.name}.service", into: "/usr/lib/systemd/system/"
+                put from: "${rootDir}/bin/config/${rootProject.name}.nginx.http.conf", into: "/etc/nginx/conf.d/"
+                execute """
+                    systemctl daemon-reload
+                    systemctl enable ${rootProject.name}
+                    systemctl restart ${rootProject.name}
+                    systemctl restart nginx
+                """
+            }
+        }
+    }
+}
+
+task removeStage {
+    doLast {
+        ssh.settings {
+            knownHosts = allowAnyHosts
+        }
+        ssh.run {
+            session(remotes.stage) {
+                execute """
+                    systemctl stop ${rootProject.name}
+                    systemctl disable ${rootProject.name}
+                    rm /usr/lib/systemd/system/${rootProject.name}.service
+                    systemctl daemon-reload
+                    
+                    rm /etc/nginx/conf.d/${rootProject.name}.nginx.http.conf
+                    systemctl restart nginx
+                    
+                    rm /root/jars/${rootProject.name}.jar
+                """
+            }
+        }
+    }
 }
 
 task removeDeploy() {

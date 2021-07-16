@@ -1,0 +1,7 @@
+[Unit]
+Description=fortunetelling
+[Service]
+TimeoutStartSec=0
+ExecStart=/bin/java -XX:CompressedClassSpaceSize=15m -XX:ReservedCodeCacheSize=20m -XX:InitialCodeCacheSize=20m -Xms160m -Xmx160m -Xmn70m -jar /root/jars/fortunetelling.jar --spring.profiles.active=prod --server.port=5005
+[Install]
+WantedBy=multi-user.target
